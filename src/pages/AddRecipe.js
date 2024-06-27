@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';  // Changer l'importation ici
 import { toast } from 'react-toastify';
 
 const AddRecipePage = () => {
@@ -9,7 +9,7 @@ const AddRecipePage = () => {
     const [instructions, setInstructions] = useState('');
     const [category, setCategory] = useState('');
     const [imageUrl, setImageUrl] = useState('');
-    const history = useHistory();
+    const navigate = useNavigate();  // Utiliser useNavigate ici
 
     const handleAddRecipe = async (e) => {
         e.preventDefault();
@@ -18,7 +18,7 @@ const AddRecipePage = () => {
             await axios.post('http://localhost:3000/api/recipes', { name, ingredients, instructions, category, imageUrl }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            history.push('/recipes');
+            navigate('/recipes');  // Utiliser navigate ici
             toast.success('Recipe added successfully');
         } catch (error) {
             toast.error('Failed to add recipe');

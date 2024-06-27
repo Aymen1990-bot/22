@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';  // Changer l'importation ici
 import { toast } from 'react-toastify';
 
 const EditRecipePage = () => {
@@ -10,7 +10,7 @@ const EditRecipePage = () => {
     const [instructions, setInstructions] = useState('');
     const [category, setCategory] = useState('');
     const [imageUrl, setImageUrl] = useState('');
-    const history = useHistory();
+    const navigate = useNavigate();  // Utiliser useNavigate ici
 
     useEffect(() => {
         const fetchRecipe = async () => {
@@ -39,7 +39,7 @@ const EditRecipePage = () => {
             await axios.put(`http://localhost:3000/api/recipes/${id}`, { name, ingredients, instructions, category, imageUrl }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            history.push('/recipes');
+            navigate('/recipes');  // Utiliser navigate ici
             toast.success('Recipe updated successfully');
         } catch (error) {
             toast.error('Failed to update recipe');
